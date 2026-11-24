@@ -1,0 +1,185 @@
+======================================================================
+ACTUAL SUPERVISOR ROUTING TRACES — LIBRARY FINE AGENT (UNIT 3 & 4)
+Generated from actual execution of LangGraph Supervisor Workflow
+======================================================================
+
+CASE 1: NORMAL FINE CALCULATION
+----------------------------------------------------------------------
+User Input: "A novel was returned 5 days late. How much is the library fine?"
+Member ID: MEM-001 | Thread ID: cli-thread-1
+
+[HOP 1] AGENT: SUPERVISOR | ACTION: analyze_request
+  - detected_intent: calculation
+  - book_type: novel
+  - overdue_days: 5
+  - current_hop_count: 1
+  - max_hops: 4
+  - decision: Route to Policy Agent for authoritative rate verification
+
+[HOP 2] AGENT: POLICY_AGENT | ACTION: rag_retrieval
+  - status: POLICY_FOUND
+  - source: data/library_rules.txt [Section: 1 & 2 - Novels]
+  - daily_rate: 5
+  - distance: 0.1721
+  - rule_summary: Novel fine rate is ₹5/day (Loan period: 14 days).
+  - current_hop_count: 2
+  - decision: Policy validated. Route to Calculator Agent with verified rate ₹5/day
+
+[HOP 3] AGENT: CALCULATOR_AGENT | ACTION: execute_fine_tool
+  - inputs: {'days_overdue': 5, 'book_type': 'novel', 'daily_rate': 5}
+  - output: Fine: ₹25. A novel has a fine of ₹5 per overdue day for 5 overdue days.
+  - fine_amount: 25.0
+  - current_hop_count: 3
+  - decision: Arithmetic completed deterministically. Terminate workflow (END).
+
+FINAL RESPONSE:
+Fine: ₹25. A novel has a fine of ₹5 per overdue day for 5 overdue days.
+
+📋 Policy Evidence Verified:
+- Source: data/library_rules.txt [Section: 1 & 2 - Novels]
+- Rate applied: ₹5/day.
+
+
+======================================================================
+CASE 2: THREAD MEMORY FOLLOW-UP (CONTEXT REUSE ACROSS TURNS)
+----------------------------------------------------------------------
+Turn 1: "A novel was returned 5 days late. How much is the library fine?" -> ₹25
+Turn 2 (Follow-up): "And if it were a reference book?"
+Member ID: MEM-001 | Thread ID: cli-thread-1 (Same Thread)
+
+[HOP 1] AGENT: SUPERVISOR | ACTION: analyze_request
+  - detected_intent: calculation
+  - book_type: reference (extracted from current question)
+  - overdue_days: 5 (reused from previous turn via thread checkpoint memory)
+  - current_hop_count: 1
+  - max_hops: 4
+  - decision: Context successfully resolved. Route to Policy Agent for reference rate
+
+[HOP 2] AGENT: POLICY_AGENT | ACTION: rag_retrieval
+  - status: POLICY_FOUND
+  - source: data/library_rules.txt [Section: 1 & 2 - Reference Books]
+  - daily_rate: 15
+  - distance: 0.1506
+  - rule_summary: Reference fine rate is ₹15/day (Loan period: 2 days).
+  - current_hop_count: 2
+  - decision: Policy validated. Route to Calculator Agent with rate ₹15/day
+
+[HOP 3] AGENT: CALCULATOR_AGENT | ACTION: execute_fine_tool
+  - inputs: {'days_overdue': 5, 'book_type': 'reference', 'daily_rate': 15}
+  - output: Fine: ₹75. A reference has a fine of ₹15 per overdue day for 5 overdue days.
+  - fine_amount: 75.0
+  - current_hop_count: 3
+  - decision: Terminate workflow (END).
+
+FINAL RESPONSE:
+Fine: ₹75. A reference has a fine of ₹15 per overdue day for 5 overdue days.
+
+📋 Policy Evidence Verified:
+- Source: data/library_rules.txt [Section: 1 & 2 - Reference Books]
+- Rate applied: ₹15/day.
+
+
+======================================================================
+CASE 3: UNKNOWN POLICY RULE (POLICY_NOT_FOUND)
+----------------------------------------------------------------------
+User Input: "Does the library provide free replacement books for damaged reference books?"
+Member ID: MEM-001 | Thread ID: cli-thread-2
+
+[HOP 1] AGENT: SUPERVISOR | ACTION: analyze_request
+  - detected_intent: policy_query
+  - book_type: reference
+  - overdue_days: None
+  - current_hop_count: 1
+  - max_hops: 4
+  - decision: Route to Policy Agent
+
+[HOP 2] AGENT: POLICY_AGENT | ACTION: rag_retrieval
+  - status: POLICY_NOT_FOUND
+  - source: data/library_rules.txt [Section 4 - Limitations]
+  - daily_rate: None
+  - distance: 1.0
+  - rule_summary: No policy exists for replacement or damaged book waivers.
+  - current_hop_count: 2
+
+[HOP 3] AGENT: POLICY_AGENT | ACTION: reject_unsupported_query
+  - status: POLICY_NOT_FOUND
+  - reason: Rule not documented in library_rules.txt
+  - current_hop_count: 3
+  - decision: Halt calculation path immediately. Do not invent rules. Terminate (END).
+
+FINAL RESPONSE:
+❌ Policy Rule Not Found (POLICY_NOT_FOUND)
+
+Could not find the requested rule in the available library policy document. The policy does not provide free replacement books for damaged books. Please contact authorized library staff for guidance.
+
+📌 Note: The system strictly avoids inventing unlisted policies. No fine calculation or waiver was executed.
+
+
+======================================================================
+CASE 4: FINE WAIVER REQUEST (HUMAN-IN-THE-LOOP PENDING AUDIT)
+----------------------------------------------------------------------
+User Input: "I need a fine waiver for my overdue textbook because I was in the hospital."
+Member ID: MEM-001 | Thread ID: cli-thread-4
+
+[HOP 1] AGENT: SUPERVISOR | ACTION: analyze_request
+  - detected_intent: waiver
+  - book_type: textbook
+  - current_hop_count: 1
+  - max_hops: 4
+  - decision: Route to Policy Agent for waiver guidelines
+
+[HOP 2] AGENT: POLICY_AGENT | ACTION: rag_retrieval
+  - status: POLICY_FOUND
+  - source: data/library_rules.txt [Section: 1 & 2 - Textbooks]
+  - daily_rate: 10
+  - rule_summary: Textbook fine rate is ₹10/day (Loan period: 7 days).
+  - current_hop_count: 2
+  - decision: Policy found. Route to Waiver Handler (cannot auto-approve)
+
+[HOP 3] AGENT: WAIVER_HANDLER | ACTION: create_pending_waiver
+  - request_id: WVR-00766EAE
+  - status: PENDING
+  - fine_amount: ₹50 (5 days * ₹10)
+  - current_hop_count: 3
+  - decision: Created persistent PENDING waiver in SQLite. Terminate (END).
+
+FINAL RESPONSE:
+📝 Fine Waiver Request Submitted
+
+- Request ID: `WVR-00766EAE`
+- Status: ⏳ PENDING STAFF REVIEW
+- Member ID: `MEM-001`
+- Book Category: Textbook (5 days overdue)
+- Calculated Fine: ₹50
+
+🔒 Policy Rule (Section 3): Under university library rules, automated systems cannot grant waivers. Your request is queued in PENDING status and requires review by authorized library staff in the staff portal.
+
+
+======================================================================
+CASE 5: DELIBERATE ERROR / INVALID INPUT
+----------------------------------------------------------------------
+User Input: "Calculate the fine for a novel that is -3 days overdue."
+Member ID: MEM-001 | Thread ID: cli-thread-3
+
+[HOP 1] AGENT: SUPERVISOR | ACTION: analyze_request
+  - detected_intent: calculation
+  - book_type: novel
+  - overdue_days: -3
+  - current_hop_count: 1
+  - max_hops: 4
+
+[HOP 2] AGENT: POLICY_AGENT | ACTION: rag_retrieval
+  - status: POLICY_FOUND
+  - source: data/library_rules.txt [Section: 1 & 2 - Novels]
+  - daily_rate: 5
+  - current_hop_count: 2
+
+[HOP 3] AGENT: CALCULATOR_AGENT | ACTION: execute_fine_tool
+  - inputs: {'days_overdue': -3, 'book_type': 'novel', 'daily_rate': 5}
+  - output: Error: days_overdue cannot be negative.
+  - fine_amount: None
+  - current_hop_count: 3
+
+FINAL RESPONSE:
+⚠️ Calculation Error: Error: days_overdue cannot be negative.
+======================================================================

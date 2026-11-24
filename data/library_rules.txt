@@ -1,0 +1,31 @@
+# LIBRARY BORROWING & OVERDUE FINE POLICY
+# (SAMPLE POLICIES FOR PROJECT EVALUATION - ACADEMIC YEAR 2026)
+
+## 1. GENERAL BORROWING POLICY & LOAN PERIODS
+The library provides loan access to academic and leisure literature for registered university members.
+Loan periods are strictly categorized by book classification:
+- Novel loan period: 14 days maximum from the date of checkout.
+- Textbook loan period: 7 days maximum from the date of checkout.
+- Reference book loan period: 2 days maximum due to high academic demand and course curriculum constraints.
+All loaned materials must be returned on or before the due date stamped on the book slip or recorded in the member portal.
+
+## 2. OVERDUE FINE RATES & ARITHMETIC RULES
+Overdue fines accumulate on a strict per-day basis beginning the day immediately following the scheduled return date:
+- Novel overdue fine: ₹5 per overdue day.
+- Textbook overdue fine: ₹10 per overdue day.
+- Reference book overdue fine: ₹15 per overdue day.
+- Zero overdue days rule: If a book is returned on or before the scheduled due date (zero overdue days), the overdue fine is strictly ₹0 (zero fine). Negative overdue days are invalid and must not be processed.
+Total overdue fine is calculated deterministically as: Total Fine = (Number of Overdue Days) × (Standard Daily Rate for Book Category).
+
+## 3. FINE WAIVER & EXEMPTION POLICY
+Fine waivers are not granted automatically under any circumstances.
+- All fine waiver requests require explicit formal review and approval from authorized library staff.
+- A submitted waiver request remains in a PENDING status until an authorized staff member submits a formal decision.
+- Members requesting a waiver must provide a documented rationale (such as medical emergency or university-sponsored academic travel).
+- Library staff members have the sole authority to approve or reject waiver requests. Rejection decisions are permanent and cannot be overridden by automated agents.
+
+## 4. POLICY LIMITATIONS & UNKNOWN RULES CLAUSE
+This document constitutes the sole authoritative policy for library loans, overdue fine schedules, and waiver procedures.
+- Unknown rules, special replacement book allowances, damaged book exemptions, or unlisted policies must not be invented or assumed by automated systems or members.
+- If a specific rule, exemption, or question is not explicitly covered in this policy document (such as free replacement books for damaged books or lost items), the request must be marked as POLICY_NOT_FOUND.
+- For any matters not explicitly addressed in this policy, users must be directed to contact authorized library staff directly.

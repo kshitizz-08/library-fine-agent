@@ -1,0 +1,598 @@
+/* 
+  MIT ADT University — Central Library Fine & Waiver Management Desk
+  Bespoke Light White & Forest Green Design System
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Color Palette: Refined White and Forest/Sage Green */
+  --bg-app: #ffffff;
+  --bg-sidebar: #f8faf8;
+  --bg-card: #ffffff;
+  --bg-card-subtle: #f5f8f6;
+  --bg-tint-green: #eef6f1;
+  --bg-tint-sage: #e3ede6;
+
+  --border-light: #e4eee7;
+  --border-medium: #cbdcd2;
+  --border-green: #2e7d4d;
+
+  --green-900: #0d2818;
+  --green-800: #143e26;
+  --green-700: #166534;  /* Primary brand green */
+  --green-600: #1e824c;
+  --green-500: #27ae60;
+  --green-100: #e8f5ed;
+  --green-50:  #f4faf6;
+
+  --text-main: #14231b;
+  --text-muted: #536b5e;
+  --text-subtle: #7a9486;
+
+  --status-approved-bg: #e6f4ea;
+  --status-approved-text: #137333;
+  --status-approved-border: #ceead6;
+
+  --status-pending-bg: #fef7e0;
+  --status-pending-text: #b06000;
+  --status-pending-border: #feefc3;
+
+  --status-rejected-bg: #fce8e6;
+  --status-rejected-text: #c5221f;
+  --status-rejected-border: #fad2cf;
+
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-pill: 9999px;
+
+  --shadow-sm: 0 1px 3px rgba(16, 42, 28, 0.04);
+  --shadow-md: 0 4px 14px rgba(16, 42, 28, 0.05);
+  --shadow-lg: 0 8px 24px rgba(16, 42, 28, 0.08);
+}
+
+/* Global Font & Reset */
+html, body, [class*="css"] {
+  font-family: var(--font-sans) !important;
+  color: var(--text-main);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Page background */
+.stApp {
+  background-color: var(--bg-app) !important;
+}
+
+/* Main Content Container Padding */
+.main .block-container {
+  padding-top: 2rem !important;
+  padding-bottom: 3.5rem !important;
+  max-width: 1200px !important;
+}
+
+/* Institutional Header Card */
+.inst-header-card {
+  background: #ffffff;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem 1.75rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.inst-header-left {
+  display: flex;
+  align-items: center;
+  gap: 1.15rem;
+}
+
+.inst-logo-badge {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, #166534 0%, #0d2818 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 20px;
+  letter-spacing: -0.5px;
+  box-shadow: 0 4px 10px rgba(22, 101, 52, 0.2);
+}
+
+.inst-header-titles {
+  display: flex;
+  flex-direction: column;
+}
+
+.inst-dept-tag {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--green-700);
+  margin-bottom: 0.15rem;
+}
+
+.inst-title {
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: var(--green-900);
+  letter-spacing: -0.025em;
+  margin: 0;
+  line-height: 1.25;
+}
+
+.inst-subtitle {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+  margin-bottom: 0;
+}
+
+.inst-header-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.status-indicator-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: var(--green-50);
+  border: 1px solid var(--border-medium);
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--green-800);
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--green-500);
+}
+
+/* Sidebar Styling */
+[data-testid="stSidebar"] {
+  background-color: var(--bg-sidebar) !important;
+  border-right: 1px solid var(--border-light) !important;
+}
+
+[data-testid="stSidebar"] [data-testid="stVerticalBlock"] {
+  gap: 0.85rem;
+}
+
+.sidebar-brand-box {
+  padding: 0.5rem 0 0.85rem 0;
+}
+
+.sidebar-brand-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--green-900);
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.sidebar-brand-caption {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 0.2rem;
+}
+
+.sidebar-section-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--green-700);
+  margin-top: 0.6rem;
+  margin-bottom: 0.25rem;
+  display: block;
+}
+
+.sidebar-card {
+  background: #ffffff;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 0.85rem;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 0.5rem;
+}
+
+/* Tabs: Human Crafted, Clean Minimalist */
+.stTabs [data-baseweb="tab-list"] {
+  background: var(--bg-card-subtle) !important;
+  border-radius: var(--radius-md) !important;
+  padding: 4px !important;
+  gap: 4px !important;
+  border: 1px solid var(--border-light) !important;
+}
+
+.stTabs [data-baseweb="tab"] {
+  background: transparent !important;
+  border: none !important;
+  border-radius: var(--radius-sm) !important;
+  padding: 0.55rem 1.1rem !important;
+  color: var(--text-muted) !important;
+  font-weight: 500 !important;
+  font-size: 0.9rem !important;
+  transition: all 0.15s ease-in-out !important;
+}
+
+.stTabs [data-baseweb="tab"]:hover {
+  color: var(--green-800) !important;
+  background: #ffffff88 !important;
+}
+
+.stTabs [aria-selected="true"] {
+  background: #ffffff !important;
+  color: var(--green-800) !important;
+  font-weight: 600 !important;
+  box-shadow: var(--shadow-sm) !important;
+  border: 1px solid var(--border-light) !important;
+}
+
+/* Hide default red highlight bar in Streamlit tabs */
+.stTabs [data-baseweb="tab-highlight"] {
+  display: none !important;
+}
+
+/* Policy Matrix Grid Cards */
+.policy-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.85rem;
+  margin: 1rem 0 1.5rem 0;
+}
+
+.policy-rate-card {
+  background: #ffffff;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.15rem;
+  transition: transform 0.15s ease, border-color 0.15s ease;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.policy-rate-card:hover {
+  border-color: var(--green-600);
+  transform: translateY(-1px);
+}
+
+.policy-rate-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.policy-book-type {
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--green-800);
+}
+
+.policy-badge {
+  font-size: 0.7rem;
+  font-weight: 600;
+  background: var(--green-100);
+  color: var(--green-800);
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--radius-pill);
+}
+
+.policy-rate-amount {
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: var(--green-900);
+  margin: 0.2rem 0;
+  line-height: 1.2;
+}
+
+.policy-loan-period {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+/* Streamlit Buttons: Restyled in Forest Green / Clean White */
+div[data-testid="stButton"] > button {
+  border-radius: var(--radius-sm) !important;
+  font-size: 0.88rem !important;
+  font-weight: 500 !important;
+  padding: 0.5rem 1rem !important;
+  transition: all 0.15s ease !important;
+  border: 1px solid var(--border-medium) !important;
+  background-color: #ffffff !important;
+  color: var(--text-main) !important;
+  box-shadow: var(--shadow-sm) !important;
+}
+
+div[data-testid="stButton"] > button:hover {
+  border-color: var(--green-700) !important;
+  color: var(--green-800) !important;
+  background-color: var(--green-50) !important;
+}
+
+div[data-testid="stButton"] > button[kind="primary"],
+div[data-testid="stBaseButton-primary"],
+div[data-testid="stFormSubmitButton"] > button {
+  background-color: var(--green-700) !important;
+  border: 1px solid var(--green-800) !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+  border-radius: var(--radius-sm) !important;
+  box-shadow: 0 1px 3px rgba(20, 83, 45, 0.2) !important;
+}
+
+div[data-testid="stButton"] > button[kind="primary"]:hover,
+div[data-testid="stBaseButton-primary"]:hover,
+div[data-testid="stFormSubmitButton"] > button:hover {
+  background-color: var(--green-800) !important;
+  border-color: var(--green-900) !important;
+  color: #ffffff !important;
+}
+
+/* Checkbox Brand Accents */
+div[data-testid="stCheckbox"] label span:first-child[aria-checked="true"],
+div[data-testid="stCheckbox"] input:checked ~ div {
+  background-color: var(--green-700) !important;
+  border-color: var(--green-700) !important;
+}
+
+/* Hide Default Streamlit Clutter for Authentic Web App Feel */
+#MainMenu {
+  visibility: hidden;
+}
+
+footer {
+  visibility: hidden;
+}
+
+header[data-testid="stHeader"] {
+  background: transparent !important;
+}
+
+
+/* Inputs & Textareas */
+div[data-baseweb="input"],
+div[data-baseweb="textarea"] {
+  border-radius: var(--radius-sm) !important;
+  border: 1px solid var(--border-medium) !important;
+  background-color: #ffffff !important;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease !important;
+}
+
+div[data-baseweb="input"]:focus-within,
+div[data-baseweb="textarea"]:focus-within {
+  border-color: var(--green-700) !important;
+  box-shadow: 0 0 0 3px rgba(22, 101, 52, 0.12) !important;
+}
+
+/* Slider Customization */
+div[data-testid="stSlider"] [role="slider"] {
+  background-color: var(--green-700) !important;
+}
+
+/* Clean Alert Boxes */
+div[data-testid="stAlert"] {
+  border-radius: var(--radius-md) !important;
+  border: 1px solid var(--border-light) !important;
+  padding: 0.85rem 1.15rem !important;
+  background-color: var(--green-50) !important;
+  color: var(--text-main) !important;
+}
+
+div[data-testid="stAlert"][kind="info"] {
+  background-color: var(--green-50) !important;
+  border-left: 4px solid var(--green-700) !important;
+}
+
+div[data-testid="stAlert"][kind="success"] {
+  background-color: var(--status-approved-bg) !important;
+  border-left: 4px solid var(--green-600) !important;
+  color: var(--status-approved-text) !important;
+}
+
+div[data-testid="stAlert"][kind="warning"] {
+  background-color: var(--status-pending-bg) !important;
+  border-left: 4px solid #d97706 !important;
+  color: var(--status-pending-text) !important;
+}
+
+div[data-testid="stAlert"][kind="error"] {
+  background-color: var(--status-rejected-bg) !important;
+  border-left: 4px solid var(--accent-red) !important;
+  color: var(--status-rejected-text) !important;
+}
+
+/* Expanders */
+div[data-testid="stExpander"] {
+  border: 1px solid var(--border-light) !important;
+  border-radius: var(--radius-md) !important;
+  background: #ffffff !important;
+  box-shadow: var(--shadow-sm) !important;
+  margin-top: 0.65rem !important;
+}
+
+div[data-testid="stExpander"] summary {
+  padding: 0.65rem 1rem !important;
+  font-weight: 600 !important;
+  color: var(--text-main) !important;
+}
+
+div[data-testid="stExpander"] summary:hover {
+  color: var(--green-800) !important;
+  background-color: var(--green-50) !important;
+}
+
+/* Conversation / Chat Items */
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-top: 1.25rem;
+}
+
+.user-query-card {
+  background: var(--bg-card-subtle);
+  border: 1px solid var(--border-light);
+  border-left: 4px solid var(--green-700);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.25rem;
+}
+
+.user-query-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--green-800);
+  margin-bottom: 0.35rem;
+}
+
+.user-query-text {
+  font-size: 0.95rem;
+  color: var(--text-main);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.assistant-response-card {
+  background: #ffffff;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 1.15rem 1.35rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.assistant-meta-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding-bottom: 0.75rem;
+  margin-bottom: 0.85rem;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.assistant-agent-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--green-900);
+}
+
+.pills-group {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  flex-wrap: wrap;
+}
+
+.pill-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.22rem 0.65rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.73rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.pill-green {
+  background: var(--status-approved-bg);
+  color: var(--status-approved-text);
+  border: 1px solid var(--status-approved-border);
+}
+
+.pill-amber {
+  background: var(--status-pending-bg);
+  color: var(--status-pending-text);
+  border: 1px solid var(--status-pending-border);
+}
+
+.pill-red {
+  background: var(--status-rejected-bg);
+  color: var(--status-rejected-text);
+  border: 1px solid var(--status-rejected-border);
+}
+
+.pill-neutral {
+  background: var(--bg-card-subtle);
+  color: var(--text-muted);
+  border: 1px solid var(--border-light);
+}
+
+.assistant-content {
+  font-size: 0.94rem;
+  line-height: 1.6;
+  color: var(--text-main);
+}
+
+/* Audit / Table styling */
+div[data-testid="stDataFrame"] {
+  border: 1px solid var(--border-light) !important;
+  border-radius: var(--radius-md) !important;
+  overflow: hidden !important;
+}
+
+/* Section Subheaders */
+.section-heading-box {
+  margin: 1.25rem 0 0.75rem 0;
+}
+
+.section-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--green-900);
+  letter-spacing: -0.015em;
+  margin: 0 0 0.2rem 0;
+}
+
+.section-desc {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+/* Footer Card */
+.app-footer {
+  margin-top: 3rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border-light);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}

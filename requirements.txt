@@ -1,0 +1,6 @@
+langchain
+langchain-ollama
+langgraph
+streamlit
+chromadb
+langgraph-checkpoint-sqlite
